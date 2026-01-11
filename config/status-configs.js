@@ -28,7 +28,7 @@ const Status = {
                     IP: Config.Nodes.Dono2,
                     ID: "31",
                     Location: Config.Ping.UK,
-                    MaxLimit: 560
+                    MaxLimit: 700
                 },
                 dono03: {
                     Name: "Dono-03",
