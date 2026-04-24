@@ -45,6 +45,14 @@ const Status = {
                     ID: "46",
                     Location: Config.Ping.UK,
                     MaxLimit: 400
+                },
+                dono04: {
+                    Name: "Dono-05",
+                    serverID: "ac3e6fbe",
+                    IP: Config.Nodes.Dono5,
+                    ID: "51",
+                    Location: Config.Ping.UK,
+                    MaxLimit: 100
                 }
             },
 
