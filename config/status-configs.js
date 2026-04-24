@@ -69,6 +69,12 @@ const Status = {
         },
 
         "VPS Hosting": {
+            us1: {
+                name: "United States 1",
+                IP: Config.Servers.US1,
+                Location: Config.Ping.UK
+            },
+            {
             us2: {
                 name: "United States 2",
                 IP: Config.Servers.US2,
@@ -83,7 +89,7 @@ const Status = {
 
         "Misc": {
             pterodactylPublic: {
-                name: "Pterodactyl (Public)",
+                name: "Pterodactyl",
                 IP: Config.Services.pteropublic,
                 Location: Config.Ping.UK
             },
@@ -100,6 +106,11 @@ const Status = {
             vpsPanel: {
                 name: "VPS Panel",
                 IP: Config.Services.vpspanel,
+                Location: Config.Ping.UK
+            },
+            dediPanel: {
+                name: "Dedi Panel",
+                IP: Config.Services.dedipanel,
                 Location: Config.Ping.UK
             }
         }
