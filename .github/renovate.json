@@ -5,7 +5,7 @@
     ":enableVulnerabilityAlerts",
     ":dependencyDashboard"
   ],
-  "labels": ["dependencies"],
+  "labels": ["Dependencies"],
   "minimumReleaseAge": "7 days",
   "minimumReleaseAgeBehaviour": "timestamp-required",
   "rangeStrategy": "bump",
