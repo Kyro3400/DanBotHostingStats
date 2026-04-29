@@ -5,22 +5,21 @@ const misc = {
         "737603315722092544", //Sarah
         "459025800633647116", //Avix
         "757296951925538856", //DIBSTER
-        "405771597761216522"  //Mike
     ],
 
     // Staff who can make code drops.
     codeDrops: [
         "137624084572798976", //Dan
         "737603315722092544", //Sarah
-        "405771597761216522", //Mike
-        "757296951925538856"  //DIBSTER
+        "757296951925538856",  //DIBSTER
+        "459025800633647116"
     ],
 
     //Staff who can run eval and exec.
     botCommands: [
         "137624084572798976", //Dan
         "757296951925538856",  //DIBSTER
-        "405771597761216522", //Mike
+        "459025800633647116", 
     ],
 
     // Channels where the bot reacts with up and down.
