@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const cap = require("../util/cap");
+const { COMMANDS_DIR, isSafeCommandName, resolveCommandModule } = require("../util/resolveCommandModule.js");
 const Config = require('../../config.json');
 const MiscConfigs = require('../../config/misc-configs.js');
 const { Sentry } = require('../../index.js');
@@ -69,21 +70,29 @@ module.exports = async (client, message) => {
             !message.member.roles.cache.find((x) => x.id === Config.DiscordBot.Roles.BotAdmin)      // Making sure the user isn't a bot Administrator.
         ) return;
 
-        const categoriesPath = path.join(__dirname, '../commands');
-        const categories = fs.readdirSync(categoriesPath).filter(x => fs.statSync(path.join(categoriesPath, x)).isDirectory());
+        if (!isSafeCommandName(command)) {
+            await message.reply("Command not found.").catch(() => {});
+            return;
+        }
+
+        const categories = fs.readdirSync(COMMANDS_DIR).filter((name) => {
+            if (!isSafeCommandName(name)) return false;
+            return fs.statSync(path.join(COMMANDS_DIR, name)).isDirectory();
+        });
 
         if (categories.includes(command)) {
             if (!args[0]) {
-                const helpFilePath = path.join(__dirname, `../commands/${command}/help.js`);
-                if (fs.existsSync(helpFilePath)) {
+                const helpFilePath = resolveCommandModule([command, "help.js"]);
+                if (helpFilePath) {
                     let commandFile = require(helpFilePath);
                     await commandFile.run(client, message, args);
                 } else {
                     message.reply("Help command not found.");
                 }
             } else {
-                const commandFilePath = path.join(__dirname, `../commands/${command}/${args[0]}.js`);
-                if (fs.existsSync(commandFilePath)) {
+                const subCommand = args[0].toLowerCase();
+                const commandFilePath = resolveCommandModule([command, `${subCommand}.js`]);
+                if (commandFilePath) {
                     let commandFile = require(commandFilePath);
                     await commandFile.run(client, message, args);
                 } else {
@@ -91,12 +100,12 @@ module.exports = async (client, message) => {
                 }
             }
         } else {
-            const commandFilePath = path.join(__dirname, `../commands/${command}.js`);
-            if (fs.existsSync(commandFilePath)) {
+            const commandFilePath = resolveCommandModule([`${command}.js`]);
+            if (commandFilePath) {
                 let commandFile = require(commandFilePath);
                 await commandFile.run(client, message, args);
             } else {
-                await message.reply("Command not found.").catch(Error => {});
+                await message.reply("Command not found.").catch(() => {});
             }
         }
     } catch (Error) {
